@@ -21,3 +21,15 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Firebase setup
+/src/firebase.config.js
+
+#use Authenticartion
+/src/components/custom-hooks/useAuth.js
+
+#images and data 
+/src/assets/data
+
+/src/assets/images

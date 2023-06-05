@@ -1,0 +1,24 @@
+.common_section {
+  background: linear-gradient(rgba(0, 0, 0, 0.562), rgba(0, 0, 0, 0.562)),
+    url("../assets/images/room-design01.jpg") no-repeat center center;
+  background-size: cover;
+  padding: 300px 0px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.common_section h1 {
+  color: #fff;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 768px) {
+  .common_section {
+    padding: 70px 0px;
+  }
+
+  .common_section h1 {
+    font-size: 1.4rem;
+  }
+}
