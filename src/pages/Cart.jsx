@@ -11,6 +11,12 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
+  const dispatch = useDispatch(); // Add this line
+
+  const deleteProduct = (itemId) => {
+    dispatch(cartActions.deleteItem(itemId));
+  };
+
   return (
     <Helmet title="Cart">
       <CommonSection title="Shopping Cart" />
@@ -19,7 +25,7 @@ const Cart = () => {
           <Row>
             <Col lg="9">
               {cartItems.length === 0 ? (
-                <h2 className="fs-4 text-center">No item added to the cart </h2>
+                <h2 className="fs-4 text-center">No item added to the cart</h2>
               ) : (
                 <table className="table boarderd">
                   <thead>
@@ -34,7 +40,11 @@ const Cart = () => {
 
                   <tbody>
                     {cartItems.map((item, index) => (
-                      <Tr item={item} key={index} />
+                      <Tr
+                        key={index}
+                        item={item}
+                        deleteProduct={deleteProduct}
+                      />
                     ))}
                   </tbody>
                 </table>
@@ -48,7 +58,6 @@ const Cart = () => {
                 </h6>
               </div>
               <p className="fs-6 mt-2">
-                {" "}
                 taxes and shipping will calculate in checkout
               </p>
               <button className="buy_btn w-100">
@@ -65,28 +74,24 @@ const Cart = () => {
   );
 };
 
-const Tr = ({ item }) => {
-  const dispatch = useDispatch();
-
-  const deleteProduct = () => {
-    dispatch(cartActions.deleteItem(item.id));
-  };
+const Tr = ({ item, deleteProduct }) => {
   return (
     <tr>
       <td>
-        <img src={item.imgUrl} alt="" />
+        <img src={item?.imgUrl} alt="" />
       </td>
-      <td>{item.productName}</td>
-      <td>₹ {item.price}</td>
-      <td>{item.quantity}px</td>
+      <td>{item?.productName}</td>
+      <td>₹ {item?.price}</td>
+      <td>{item?.quantity}px</td>
       <td>
         <motion.i
           whileTap={{ scale: 1.2 }}
-          onClick={deleteProduct}
-          class="ri-delete-bin-line"
+          onClick={() => deleteProduct(item?.id)}
+          className="ri-delete-bin-line"
         ></motion.i>
       </td>
     </tr>
   );
 };
+
 export default Cart;
